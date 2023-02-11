@@ -1,14 +1,18 @@
-
 {
-    "builds": [{
-        "src": "todo/wsgi.py",
-        "use": "@natanffs/vercel-python-wsgi",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
-    }],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "todo/wsgi.py"
-        }
-    ]
+"build": {
+"env": {
+
+    }
+},
+"builds": [{
+    "src": "todo/wsgi.py",
+    "use": "@natanffs/vercel-python-wsgi",
+    "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+}],
+"routes": [
+    {
+        "src": "/(.*)",
+        "dest": "cores/wsgi.py"
+    }
+]
 }
