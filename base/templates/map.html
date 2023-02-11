@@ -1,0 +1,47 @@
+<!-- {% extends 'base/main.html' %}
+{% block content %} -->
+<style>
+    .ya_map {
+        font-family: arial;
+        font-size: 12px;
+        color: #454545;
+    }
+     
+    #map {
+        width: 100%;
+        height: 300px;
+    }
+    </style>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=e995f68e-69cb-44ee-8767-2f2d70a64d17" type="text/javascript"></script>
+
+    <h2>Map is here</h2>
+    <div id="map"></div>
+    <script type="text/javascript">
+
+        ymaps.ready(init); 
+        var myMap;
+        
+        function init() {
+        
+            myMap = new ymaps.Map("map", {
+                center: [55.51052373673233,47.477338496386125], // Координаты центра карты
+                zoom: 14 // Маштаб карты
+            }); 
+        
+            myMap.controls.add(
+                new ymaps.control.ZoomControl()  // Добавление элемента управления картой
+            ); 
+        
+            myPlacemark = new ymaps.Placemark([55.51052373673233,47.477338496386125], { // Координаты метки объекта
+                balloonContent: "<div class='ya_map'>Канаш - город наш!</div>" // Подсказка метки
+            }, {
+                preset: "twirl#redDotIcon" // Тип метки
+            });
+            
+            myMap.geoObjects.add(myPlacemark); // Добавление метки
+            myPlacemark.balloon.open(); // Открытие подсказки метки
+            
+        };
+        
+    </script>
+<!-- {% endblock content %} -->

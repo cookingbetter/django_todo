@@ -1,0 +1,17 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<div class="back-bar">
+    <a href='{% url 'tasks' %}'>&#8592; Back</a>
+</div>
+
+<form method="post">
+     
+    <!-- do not know why yet, but without it goes wrong -->
+    {% csrf_token %}
+
+    {{form.as_p}}
+    <input type="submit" value="Save">
+</form>
+
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<style>
+    html{
+        background-image: url(https://cdn.lifehacker.ru/wp-content/uploads/2021/06/screen-shot-2021-06-10-at-1-54-10-pm-1623347749_1623392568.jpg);
+        background-size: 100%;
+    }
+</style>
+
+<div class="header-bar">
+    <div>
+        <!-- if name contains more one word, we show only one word -->
+        <h1>Hello, {{request.user|title}}</h1>
+        <h3>You have {{count}} incomplete task{{count|pluralize:"s"}}</h3>
+    </div>
+
+{% if request.user.is_authenticated %}
+<a href='{% url 'logout' %}'>Logout</a>
+{% else %}
+<a href='{% url 'login' %}'>Login</a>
+{% endif %}
+</div>
+
+
+
+<h1>My To Do List</h1>
+
+
+<div id="search-add-wrapper">
+    <form method="get" style="margin-top: 20px; display:flex;">
+        <input type="text" value="{{search_input}}" name="search-area">
+        <input class="button" type="submit" value="Search">
+    </form>
+    <!-- use paths in urls.py -->
+    <a id="add-link" href="{% url 'task-create' %}">&#43;</a>
+</div>
+
+
+<div class="task-items-wrapper">
+    {% for task in tasks %}
+    <div class="task-wrapper">
+        {% if task.complete %}
+        <div class="task-title">
+            <div class="task-complete-icon"></div>
+            <i><s><a href="{% url 'task-update' task.id %}">{{task.title}}</a></s></i>
+        </div>
+        <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a> 
+        {% else %}
+        <div class="task-title">
+            <div class="task-incomplete-icon"></div>
+            <a href="{% url 'task-update' task.id %}">{{task.title}}</a>
+        </div>
+        <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a> 
+        {% endif %}
+    </div>
+    {% empty %}
+        <h3>No items in list</h3>
+    {% endfor %}
+</div>
+
+<br>Click <a href="{% url 'map' %}">here</a> to see us on the map     
+{% endblock content %}
